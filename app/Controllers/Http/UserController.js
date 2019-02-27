@@ -21,7 +21,7 @@ class UserController {
   }
 
   // Request login user
-  async login({ request, auth }) {
+  async login({ request, auth, response }) {
     const rules = {
       email: 'required',
       password: 'required'
@@ -35,7 +35,10 @@ class UserController {
     const validation = await validate(request.all(), rules, messages);
 
     if (validation.fails()) {
-      return { error: validation._errorMessages[0].message };
+      return response
+        .status(400)
+        .json({ message: validation._errorMessages[0].message });
+      // return { error: validation._errorMessages[0].message };
     }
 
     const { email, password } = request.post();
@@ -53,7 +56,7 @@ class UserController {
   }
 
   // Request user register
-  async register({ request, auth }) {
+  async register({ request, auth, response }) {
     const rules = {
       username: 'required',
       email: 'required|email|unique:users',
@@ -61,17 +64,20 @@ class UserController {
     };
 
     const messages = {
-      'username.required': 'Username tidak boleh kosong',
-      'email.required': 'Email tidak boleh kosong',
-      'email.email': 'Email tidak valid',
-      'email.unique': 'Email telah terdaftar',
-      'password.required': 'Password tidak boleh kosong'
+      'username.required': 'Username is required',
+      'email.required': 'Email is required',
+      'email.email': 'Email not valid',
+      'email.unique': 'Email already register',
+      'password.required': 'Password is required'
     };
 
     const validation = await validate(request.all(), rules, messages);
 
     if (validation.fails()) {
-      return { error: validation._errorMessages[0].message };
+      return response
+        .status(400)
+        .json({ message: validation._errorMessages[0].message });
+      // return this.validationFailed(request, response, validation);
     }
 
     try {
@@ -79,6 +85,12 @@ class UserController {
     } catch (error) {
       error;
     }
+  }
+
+  validationFailed(request, response, validation) {
+    return function*() {
+      yield request.withAll().andWith({ errors: validation.messages() });
+    };
   }
 }
 
