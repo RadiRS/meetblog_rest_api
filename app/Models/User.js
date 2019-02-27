@@ -16,6 +16,10 @@ class User extends Model {
     return this.hasMany('App/Models/Token');
   }
 
+  profile() {
+    return this.hasOne('App/Models/Profile');
+  }
+
   // static getUser(id) {
   //   return this.query().select('name')
   // }

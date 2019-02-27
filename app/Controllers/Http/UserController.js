@@ -4,21 +4,19 @@ const User = use('App/Models/User');
 const { validate } = use('Validator');
 
 class UserController {
-  async show({ auth }) {
+  async self({ auth, params: { id } }) {
     try {
-      return await auth.getUser();
+      const data = await auth.getUser();
+      if (data) {
+        return User.query()
+          .where('id', id)
+          .with('profile')
+          .fetch();
+      }
     } catch (error) {
       return error;
     }
   }
-
-  // async show({ params: { id } }) {
-  //   try {
-  //     await User.getUser(id);
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // }
 
   async login({ request, auth }) {
     const rules = {
