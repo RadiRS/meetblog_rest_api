@@ -18,10 +18,11 @@ Route.group(() => {
   );
 
   // Posts
+  Route.get('posts', 'PostController.posts').middleware('auth');
   Route.get('post/:id', 'PostController.show').middleware('auth');
   Route.patch('post/:id', 'PostController.update').middleware('auth');
   Route.post('post', 'PostController.create').middleware('auth');
   Route.delete('post/:id', 'PostController.delete').middleware('auth');
 
-  // Posts
+  // Comments
 }).prefix('api/v1');

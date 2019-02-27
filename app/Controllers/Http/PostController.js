@@ -4,6 +4,11 @@ const Post = use('App/Models/Post');
 const { validate } = use('Validator');
 
 class PostController {
+  // Get all post
+  async posts() {
+    return await Post.getPosts();
+  }
+
   // Get post by user id
   async show({ params: { id } }) {
     try {

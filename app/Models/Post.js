@@ -4,9 +4,11 @@
 const Model = use('Model');
 
 class Post extends Model {
-  // static getPost() {
-  //   return this.
-  // }
+  static getPosts() {
+    return this.query()
+      .with('users')
+      .fetch();
+  }
 
   static getPost(id) {
     return this.query()
@@ -33,8 +35,6 @@ class Post extends Model {
   }
 
   static async deletePost(id) {
-    // const post = this.find(id);
-    // await post.delete();
     await this.query()
       .where('id', id)
       .delete();
