@@ -12,6 +12,10 @@ class User extends Model {
     });
   }
 
+  static addUser(data) {
+    return this.create(data);
+  }
+
   tokens() {
     return this.hasMany('App/Models/Token');
   }
@@ -27,10 +31,6 @@ class User extends Model {
   // static getUser(id) {
   //   return this.query().select('name')
   // }
-
-  static addUser(data) {
-    return this.create(data);
-  }
 }
 
 module.exports = User;

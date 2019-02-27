@@ -7,6 +7,7 @@ class Post extends Model {
   static getPosts() {
     return this.query()
       .with('users')
+      .with('likes')
       .fetch();
   }
 
@@ -46,6 +47,10 @@ class Post extends Model {
 
   users() {
     return this.belongsTo('App/Models/User');
+  }
+
+  likes() {
+    return this.hasMany('App/Models/Like');
   }
 }
 
