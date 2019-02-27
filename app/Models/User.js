@@ -20,6 +20,10 @@ class User extends Model {
     return this.hasOne('App/Models/Profile');
   }
 
+  posts() {
+    return this.hasMany('App/Models/Post');
+  }
+
   // static getUser(id) {
   //   return this.query().select('name')
   // }

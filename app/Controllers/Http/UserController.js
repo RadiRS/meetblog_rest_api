@@ -4,6 +4,7 @@ const User = use('App/Models/User');
 const { validate } = use('Validator');
 
 class UserController {
+  // Get user by id with auth
   async self({ auth, params: { id } }) {
     try {
       const data = await auth.getUser();
@@ -18,6 +19,7 @@ class UserController {
     }
   }
 
+  // Request login user
   async login({ request, auth }) {
     const rules = {
       email: 'required',
@@ -49,6 +51,7 @@ class UserController {
     }
   }
 
+  // Request user register
   async register({ request, auth }) {
     const rules = {
       username: 'required',

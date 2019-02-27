@@ -4,6 +4,7 @@ const Profile = use('App/Models/Profile');
 const { validate } = use('Validator');
 
 class ProfileController {
+  // Get profile by user id
   async show({ params: { id } }) {
     try {
       return await Profile.getProfile(id);
@@ -12,6 +13,7 @@ class ProfileController {
     }
   }
 
+  // Create profile
   async create({ request }) {
     const rules = {
       full_name: 'required',
@@ -38,6 +40,7 @@ class ProfileController {
     }
   }
 
+  // Update profile
   async update({ request, params: { id } }) {
     const rules = {
       full_name: 'required',
