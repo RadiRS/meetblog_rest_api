@@ -8,6 +8,7 @@ class Post extends Model {
     return this.query()
       .with('users')
       .with('likes')
+      .with('comments')
       .fetch();
   }
 
@@ -51,6 +52,10 @@ class Post extends Model {
 
   likes() {
     return this.hasMany('App/Models/Like');
+  }
+
+  comments() {
+    return this.hasMany('App/Models/Comment');
   }
 }
 

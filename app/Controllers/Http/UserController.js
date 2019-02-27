@@ -12,6 +12,7 @@ class UserController {
         return User.query()
           .where('id', id)
           .with('profile')
+          .with('followers')
           .fetch();
       }
     } catch (error) {

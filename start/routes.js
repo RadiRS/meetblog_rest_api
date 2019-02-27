@@ -26,4 +26,12 @@ Route.group(() => {
 
   // Likes
   Route.post('like', 'LikeController.create').middleware('auth');
+
+  // Comments
+  Route.post('comment', 'CommentController.create').middleware('auth');
+  Route.patch('comment/:id', 'CommentController.update').middleware('auth');
+  Route.delete('comment/:id', 'CommentController.delete').middleware('auth');
+
+  // Followers
+  Route.post('follower', 'FollowerController.create').middleware('auth');
 }).prefix('api/v1');

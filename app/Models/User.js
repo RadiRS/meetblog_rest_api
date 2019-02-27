@@ -20,6 +20,10 @@ class User extends Model {
     return this.hasMany('App/Models/Token');
   }
 
+  followers() {
+    return this.hasMany('App/Models/Follower');
+  }
+
   profile() {
     return this.hasOne('App/Models/Profile');
   }
